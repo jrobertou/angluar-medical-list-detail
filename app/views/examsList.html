@@ -1,0 +1,54 @@
+<section role="region" class="ng-scope">
+  <header>
+  	<nav id="header-nav" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-header">
+          <a class="navbar-brand">Centre d'analyse et de radilogie générale</a>
+        </div>
+    </nav>
+  </header>
+</section>
+<section class="view detail container">
+	<div ng:repeat="patient in patients">
+		<div class="row">
+  		<div class="col-md-10 col-md-offset-2">
+  			<h3>{{ patient.lastName }} {{patient.firstName}}</h3>
+  		</div>
+  	</div>
+  	<div class="row">
+  		<div class="col-md-2">
+  			<p class="align-right"><i class="small">Date de naissance :</i></p>
+  		</div>
+  		<div class="col-md-10">
+  			<p>{{ patient.dateOfBirth | date:'dd-MM-yyyy' }} - {{ patient.age }} ans</p>
+			</div>
+		</div>
+  	<div class="row">
+  		<div class="col-md-2">
+  			<p class="align-right"><i class="small">Exams réalisés :</i></p>
+  		</div>
+  		<div class="col-md-10">
+  			<table class="table">
+  				<thead>
+            <th>Date</th>
+  					<th>State Report</th>
+  					<th>Radiologue en charge</th>
+  					<th>Hospital</th>
+  					<th>Acts</th>
+  					<th>Images</th>
+  				</thead>
+  				<tbody ng:repeat="exam in patient.examsList">
+  					<tr class="link-hover" ng-tap="go('/exam/details/{{ patient.id }}/{{ exam.id }}', 'forward')">
+						<td>{{ exam.creationDate | date:'dd-MM-yyyy' }}</td>
+						<td>{{ exam.stateReport }}</td>
+						<td>{{ exam.radiologistInCharge ?  exam.radiologistInCharge : "Non assigné"}}</td>
+						<td>{{ exam.hospital.name }}</td>
+						<td ng-if="exam.acts.length > 0"><span ng:repeat="act in exam.acts">{{ act }} </span></td>
+						<td ng-if="!exam.acts || exam.acts.length == 0">Non renseigné</td>
+						<td>{{ exam.nbDicoms }}</td>
+					</tr>
+  				</tbody>
+  			</table>
+			</div>
+		</div>
+	</div>
+</section>
