@@ -8,4 +8,5 @@ built using [AngularJS](http://angularjs.org/).
 * Clone this repository
 * Run `npm install -d`
 * Run `bower install`
+* Run `node server`
 * Open `index.html`
